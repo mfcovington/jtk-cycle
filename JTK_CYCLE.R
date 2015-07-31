@@ -1,3 +1,4 @@
+source('mean-circadian-phase.R')
 
 # Shewchuk algorithms for adaptive precision summation used in jtkdist
 # http://www.cs.cmu.edu/afs/cs/project/quake/public/papers/robust-arithmetic.ps
@@ -233,6 +234,9 @@ jtkx <- function(z) {
   sumlag <- 0
   sumamp <- 0
   
+  best.phases <- c()
+  best.periods <- c()
+
   for(i in 1:length(pers)) {
     per <- pers[i]
     peri <- peris[i]
@@ -250,6 +254,9 @@ jtkx <- function(z) {
   
       lag <- (per +(1-s)*per/4 -(lagi-1)/2)%%per
       sumlag <- sumlag+lag
+
+      best.phases <- c(best.phases, lag)
+      best.periods <- c(best.periods, per)
   
       signcos <- sc[,lagi]
       amp <- s*w*signcos									##
@@ -261,5 +268,9 @@ jtkx <- function(z) {
   JTK.LAG <<- JTK.INTERVAL*sumlag/count           # mean lag to peaks of optimal cosine waves (hours)
   JTK.AMP <<- max(0,sumamp)/count                 # mean amplitude of optimal cosine waves
   JTK.TAU <<- abs(S)/JTK.MAX                      # all optimal abs(S) are the same
+
+  CIRC.PHASE <<- mean.circadian.phase(
+    best.phases * JTK.INTERVAL,
+    best.periods * JTK.INTERVAL)
 }
 
