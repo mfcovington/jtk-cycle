@@ -1,8 +1,8 @@
-circtime.to.radians <- function(phases, periods) {
+hours.to.radians <- function(phases, periods) {
   2 * pi * phases / periods
 }
 
-radians.to.circtime <- function(angles, periods=NULL) {
+radians.to.hours <- function(angles, periods=NULL) {
   hours <- angles * 12 / pi
   hours <- hours %% 24
   ifelse(is.null(periods), hours, hours * mean(periods) / 24)
@@ -20,11 +20,11 @@ radius <- function(angles, radians=TRUE) {
 }
 
 mean.phase <- function(phases, periods, min.radius=0.5, circ.time=FALSE) {
-  angles <- circtime.to.radians(phases, periods)
+  angles <- hours.to.radians(phases, periods)
   mean.angle <- circular.mean(angles)
 
   if (radius(angles) > min.radius) {
-    radians.to.circtime(mean.angle, if (circ.time == FALSE) periods)
+    radians.to.hours(mean.angle, if (circ.time == FALSE) periods)
   } else {
     NA
   }
