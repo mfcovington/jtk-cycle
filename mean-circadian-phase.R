@@ -19,7 +19,7 @@ radius <- function(angles, radians=TRUE) {
   sqrt(mean(sin(angles)) ^ 2 + mean(cos(angles)) ^ 2)
 }
 
-mean.circadian.phase <- function(phases, periods, min.radius=0.5, circ.time=TRUE) {
+mean.phase <- function(phases, periods, min.radius=0.5, circ.time=FALSE) {
   angles <- circtime.to.radians(phases, periods)
   mean.angle <- circular.mean(angles)
 

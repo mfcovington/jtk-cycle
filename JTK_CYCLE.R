@@ -263,13 +263,13 @@ jtkx <- function(z) {
     }
   }
   JTK.PERIOD <<- JTK.INTERVAL*sumper/count        # mean optimal period (hours)
-  JTK.LAG <<- mean.circadian.phase(               # mean lag to peaks of optimal cosine waves (hours)
-    best.phases * JTK.INTERVAL,
-    best.periods * JTK.INTERVAL,
-    circ.time=FALSE)
-  JTK.LAG.CT <<- mean.circadian.phase(            # mean lag to peaks of optimal cosine waves (circadian hours)
+  JTK.LAG <<- mean.phase(                         # mean lag to peaks of optimal cosine waves (hours)
     best.phases * JTK.INTERVAL,
     best.periods * JTK.INTERVAL)
+  JTK.LAG.CT <<- mean.phase(                      # mean lag to peaks of optimal cosine waves (circadian hours)
+    best.phases * JTK.INTERVAL,
+    best.periods * JTK.INTERVAL,
+    circ.time=TRUE)
   JTK.AMP <<- max(0,sumamp)/count                 # mean amplitude of optimal cosine waves
   JTK.TAU <<- abs(S)/JTK.MAX                      # all optimal abs(S) are the same
 }
