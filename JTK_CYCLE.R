@@ -231,7 +231,6 @@ jtkx <- function(z) {
   count <- sum(sapply(lagis,length))              # total number of optimal lags for all optimal period
   
   sumper <- 0
-  sumlag <- 0
   sumamp <- 0
   
   best.phases <- c()
@@ -253,7 +252,6 @@ jtkx <- function(z) {
       if(!s) s <- 1
   
       lag <- (per +(1-s)*per/4 -(lagi-1)/2)%%per
-      sumlag <- sumlag+lag
 
       best.phases <- c(best.phases, lag)
       best.periods <- c(best.periods, per)
@@ -265,7 +263,10 @@ jtkx <- function(z) {
     }
   }
   JTK.PERIOD <<- JTK.INTERVAL*sumper/count        # mean optimal period (hours)
-  JTK.LAG <<- JTK.INTERVAL*sumlag/count           # mean lag to peaks of optimal cosine waves (hours)
+  JTK.LAG <<- mean.circadian.phase(               # mean lag to peaks of optimal cosine waves (hours)
+    best.phases * JTK.INTERVAL,
+    best.periods * JTK.INTERVAL,
+    circ.time=FALSE)
   JTK.AMP <<- max(0,sumamp)/count                 # mean amplitude of optimal cosine waves
   JTK.TAU <<- abs(S)/JTK.MAX                      # all optimal abs(S) are the same
 
