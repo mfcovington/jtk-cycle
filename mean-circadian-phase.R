@@ -19,11 +19,11 @@ radius <- function(angles, radians=TRUE) {
   sqrt(mean(sin(angles)) ^ 2 + mean(cos(angles)) ^ 2)
 }
 
-mean.phase <- function(phases, periods, min.radius=0.5, circ.time=FALSE) {
+mean.phase <- function(phases, periods, min.radius=sqrt(2)/2, circ.time=FALSE) {
   angles <- hours.to.radians(phases, periods)
   mean.angle <- circular.mean(angles)
 
-  if (radius(angles) > min.radius) {
+  if (radius(angles) >= min.radius) {
     radians.to.hours(mean.angle, if (circ.time == FALSE) periods)
   } else {
     NA
