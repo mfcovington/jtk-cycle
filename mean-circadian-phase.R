@@ -13,6 +13,9 @@ circular.mean <- function(angles) {
 }
 
 radius <- function(angles, radians=TRUE) {
+  if (radians == FALSE) {
+    angles <- angles * 2 * pi / 360
+  }
   sqrt(mean(sin(angles)) ^ 2 + mean(cos(angles)) ^ 2)
 }
 
