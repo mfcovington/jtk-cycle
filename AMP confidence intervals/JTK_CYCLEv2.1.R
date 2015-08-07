@@ -272,6 +272,7 @@ jtkx <- function(z, conf=0.9) {
   }
   JTK.PERIOD <<- JTK.INTERVAL*bestper        			# period (hours) with max amp
   JTK.LAG <<- JTK.INTERVAL*bestlag           			# lag (hours) to peak with max amp
+  JTK.LAG.CT <<- JTK.INTERVAL*bestlag*24/bestper  # lag (circadian hours) to peak with max amp
   JTK.AMP <<- max(0,maxamp)                				# max amp
 	JTK.AMP.CI <<- maxamp.ci												# confidence interval for max amp
 	JTK.AMP.PVAL <<- maxamp.pval										# p-value for max amp
